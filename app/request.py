@@ -13,6 +13,7 @@ api_key = app.config['NEWS_API_KEY']
 
 base_url = app.config['NEWS_API_URL']
 article_url = app.config['ARTICLES_API_URL']
+search_url = app.config['SEARCH_API_URL']
 
 
 def get_news_sources():
@@ -101,3 +102,20 @@ def process_result(article_list):
         article_results.append(article_object)
 
     return article_results
+
+def search_article(name):
+
+    get_search_url = search_url.format(name, api_key)
+
+    with urllib.request.urlopen(get_search_url) as url:
+        search_source_data = url.read()
+        search_source_response = json.loads(search_source_data)
+
+        search_source_results = None
+
+        if search_source_response['articles']:
+            search_source_list = search_source_response['articles']
+            search_source_results = process_results(search_source_list)
+
+
+    return search_source_results
