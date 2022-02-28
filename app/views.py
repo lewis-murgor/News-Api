@@ -1,7 +1,7 @@
 
-from flask import render_template
+from flask import render_template, request,redirect,url_for
 from app import app
-from .request import get_news_sources, get_article
+from .request import get_news_sources, get_article, search_article
 
 @app.route('/')
 def index():
@@ -10,7 +10,12 @@ def index():
     '''
     news_sources = get_news_sources()
     title = 'News Sources'
-    return render_template('index.html', title = title, sources = news_sources)
+    search_source = request.args.get('source_query')
+
+    if search_source:
+        return redirect(url_for('search', name=search_source))
+    else:
+        return render_template('index.html', title = title, sources = news_sources)
 
 @app.route('/article/<id>')
 def article(id):
@@ -20,3 +25,14 @@ def article(id):
     news = get_article(id)
     title = 'News Articles'
     return render_template('article.html', title = title, name = id, news = news)
+
+@app.route('/search/<name>')
+def search(name):
+    '''
+    View function to display the search results
+    '''
+    source_name_list = name.split(" ")
+    source_name_format = "+".join(source_name_list)
+    searched_source = search_article(source_name_format)
+    title = f'search results for {name}'
+    return render_template('search.html',sources = searched_source)
