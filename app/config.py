@@ -4,6 +4,7 @@ class Config:
     '''
     NEWS_API_URL = 'https://newsapi.org/v2/top-headlines/sources?apiKey={}'
     ARTICLES_API_URL = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'
+    SEARCH_API_URL = 'https://newsapi.org/v2/everything?q={}&apiKey={}'
 
 
 
