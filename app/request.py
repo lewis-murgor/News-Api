@@ -2,7 +2,7 @@
 from app import app
 import urllib.request,json
 
-from app.article_test import Article
+from tests.article_test import Article
 from .models import source, article
 
 Source = source.Source
@@ -37,10 +37,8 @@ def get_news_sources():
 def process_results(source_list):
     '''
     Function  that processes the sources and transform them to a list of Objects
-
     Args:
         sources_list: A list of dictionaries that contain movie details
-
     Returns :
         sources_results: A list of movie objects
     '''
@@ -80,10 +78,8 @@ def get_article(id):
 def process_result(article_list):
     '''
     Function  that processes the articles and transform them to a list of Objects
-
     Args:
         article_list: A list of dictionaries that contain movie details
-
     Returns :
         article_results: A list of movie objects
     '''
