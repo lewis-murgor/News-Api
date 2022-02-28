@@ -1,18 +1,19 @@
-from os import name
+
 from app import app
 import urllib.request,json
 
 from app.article_test import Article
-from .models import source
+from .models import source, article
 
 Source = source.Source
+Article = article.Article
 
 
 api_key = app.config['NEWS_API_KEY']
 
 base_url = app.config['NEWS_API_URL']
-
 article_url = app.config['ARTICLES_API_URL']
+
 
 def get_news_sources():
     '''
@@ -32,7 +33,7 @@ def get_news_sources():
 
     return sources_results
 
-def process_results(sources_list):
+def process_results(source_list):
     '''
     Function  that processes the sources and transform them to a list of Objects
 
@@ -44,7 +45,7 @@ def process_results(sources_list):
     '''
 
     sources_results = []
-    for source_item in sources_list:
+    for source_item in source_list:
         id = source_item.get('id')
         name = source_item.get('name')
         description = source_item.get('description')
@@ -66,17 +67,37 @@ def get_article(id):
         article_data = url.read()
         article_response = json.loads(article_data)
 
-        article_object = None
-        if article_response:
-            source = article_response.get('source')
-            author = article_response.get('author')
-            title = article_response.get('title')
-            description = article_response.get('description')
-            url = article_response.get('url')
-            urlToImage = article_response.get('urlToImage')
-            publishedAt = article_response.get('publishedAt')
-            content = article_response.get('content')
+        article_results = None
 
-            article_object = Article(source, author, title, description, url, urlToImage, publishedAt, content)
-            
-    return article_object
+        if article_response['articles']:
+            article_results_list = article_response['articles']
+            article_results = process_result(article_results_list)
+
+
+    return article_results
+
+def process_result(article_list):
+    '''
+    Function  that processes the articles and transform them to a list of Objects
+
+    Args:
+        article_list: A list of dictionaries that contain movie details
+
+    Returns :
+        article_results: A list of movie objects
+    '''
+
+    article_results = []
+    for article_item in article_list:
+        author = article_item.get('author')
+        title = article_item.get('title')
+        description = article_item.get('description')
+        url = article_item.get('url')
+        urlToImage = article_item.get('urlToImage')
+        publishedAt = article_item.get('publishedAt')
+        content = article_item.get('content')
+
+        article_object = Article(author, title, description, url, urlToImage, publishedAt, content)
+        article_results.append(article_object)
+
+    return article_results
