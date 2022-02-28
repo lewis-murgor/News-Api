@@ -8,7 +8,7 @@
 This is an application that displays different news sources and allows a user to view articles in the news sources and also search for news sources.
 
 ## Setup/Installation Requirements
-* You can run the application using this [link]()
+* You can run the application using this [link](https://news-254.herokuapp.com/)
 
 ## Known Bugs
 The application has no known bugs.
