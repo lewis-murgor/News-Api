@@ -8,15 +8,15 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    news = get_news_sources()
+    news_sources = get_news_sources()
     title = 'News Sources'
-    return render_template('index.html', title = title, news = news)
+    return render_template('index.html', title = title, sources = news_sources)
 
 @app.route('/article/<id>')
 def article(id):
     '''
     View article page function that returns the news articles page and its details
     '''
-    article = get_article(id)
+    news = get_article(id)
     title = 'News Articles'
-    return render_template('article.html', title = title, article = article)
+    return render_template('article.html', title = title, name = id, news = news)
