@@ -4,6 +4,10 @@
 
 #### By **Lewis Murgor**
 
+## Below is a part of the project.
+
+<img src="project.png">
+
 ## Description
 This is an application that displays different news sources and allows a user to view articles in the news sources and also search for news sources.
 
@@ -12,6 +16,9 @@ This is an application that displays different news sources and allows a user to
 
 ## Known Bugs
 The application has no known bugs.
+
+## Live Site
+The live link of the project is https://news-254.herokuapp.com/
 
 ## Technologies Used
 * Python
